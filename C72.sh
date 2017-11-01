@@ -4,8 +4,8 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 yum remove kernel-headers -y
-yum install -y https://github.com/rereborn/CENTOS6-7-bbr-/blob/master/kernel7/kernel-ml-headers-4.11.8-1.el7.elrepo.x86_64.rpm
-yum install -y https://github.com/rereborn/CENTOS6-7-bbr-/blob/master/kernel7/kernel-ml-devel-4.11.8-1.el7.elrepo.x86_64.rpm
+rpm -ivh https://github.com/rereborn/CENTOS6-7-bbr-/blob/master/kernel7/kernel-ml-headers-4.11.8-1.el7.elrepo.x86_64.rpm
+rpm -ivh https://github.com/rereborn/CENTOS6-7-bbr-/blob/master/kernel7/kernel-ml-devel-4.11.8-1.el7.elrepo.x86_64.rpm
 
 yum install make gcc -y
 wget -O ./tcp_bbr_powered.c https://gist.github.com/anonymous/ba338038e799eafbba173215153a7f3a/raw/55ff1e45c97b46f12261e07ca07633a9922ad55d/tcp_tsunami.c
@@ -15,7 +15,7 @@ make -C /lib/modules/$(uname -r)/build M=`pwd` modules CC=`which gcc`
 chmod +x ./tcp_bbr_powered.ko
 cp -rf ./tcp_bbr_powered.ko /lib/modules/$(uname -r)/kernel/net/ipv4
 
-# ²åÈëÄÚºËÄ£¿é
+
 insmod tcp_bbr_powered.ko
 depmod -a
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
