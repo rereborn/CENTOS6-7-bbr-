@@ -1,0 +1,71 @@
+{
+  "log" : {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
+  "inbound": {
+    "port": 12997,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "7c7caa17-284e-4e9a-a35f-4a242209212b",
+          "level": 1,
+          "alterId": 100,
+	  "security": "Chacha20-Poly1305"
+        }
+      ]
+    }
+  },
+  "inboundDetour": [
+    {
+    "protocol": "shadowsocks",
+    "port": 10086,
+    "settings":{
+       "method": "chacha20-ietf",
+       "password": "zai521verymuch",
+       "udp": false
+    }
+    }
+  ],
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  },
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "outboundTag": "blocked"
+        }
+      ]
+    }
+  }
+}
